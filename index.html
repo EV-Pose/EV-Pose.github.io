@@ -61,7 +61,7 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Enabling High-Frequency Cross-Modality Visual Positioning Service for Drones</h1>
+          <h2 class="title is-1 publication-title">Enabling High-Frequency Cross-Modality Visual Positioning Service for Drones</h2>
           <div class="is-size-5 publication-authors">
             <h1 class="title is-4 publication-title", style="color:#6e6e6e;">ACM SenSys 2026 Submissions #178</h1>
             <span class="author-block">
@@ -170,7 +170,7 @@
           In this work, we redesign drone-oriented VPS with event camera and introduce EV-Pose to enable accurate, low-latency 6-DoF drone pose tracking.
           EV-Pose introduces a spatio-temporal feature-instructed pose estimation module to extract temporal distance field for pose estimation with 3D point map matching; 
           and a motion-aware hierarchical fusion and optimization scheme to enhance above estimation in accuracy and efficiency, by utilizing drone motion in early stage of event filtering and later stage of pose optimization.
-          Evaluation results show that EV-Pose reduces translation and rotation errors by up to 72.63% and 90.72%, satisfying frequency compatibility with flight controller.
+          Evaluation shows that EV-Pose achieves a rotation accuracy of 1.34° and a translation accuracy of 6.9\(mm\) with a tracking latency of 10.08\(ms\), outperforming baselines by >50\%.
         </div>
       </div>
     </div>
@@ -262,22 +262,23 @@
           <b>(i) Feature-instructed Pose Estimation (STPE) module </b> (§ 4).
           This module first introduces the concept of a separated polarity time-surface, a novel spatio-temporal representation for event streams (§4.1). 
           Subsequently, it leverages the temporal relationships among events encoded in the time-surface to generate a distance field, which is then used as a feature representation for the event stream (§4.2).
-          Finally, the 2D Event-3D Point Map Matching module models the drone pose estimation problem, which aligns the event stream's distance field feature with the 3D point map, thus facilitating absolute pose estimation of the drone (§4.3).
+          Finally, the 2D event-3D point map matching module models the drone pose estimation problem, which aligns the event stream’s distance field feature with the 3D point map, thus facilitating absolute pose estimation of the drone (§4.3).
         
         </p>
         <p>
           <b>(ii) Motion-aware Hierarchical Fusion and Optimization (MHFO) scheme </b> (§5).
           This scheme first introduces motion-optical flow-instructed event filtering (§5.1), which combines drone motion information with structural data from the 3D point map to predict event polarity and perform fine-grained event filtering. 
-          This approach fuses event camera with IMU at the early stage of raw data processing, significantly reducing the number of events during matching. 
-          By utilizing proprioceptive motion tracking to infer the drone's relative motion (§5.2), this scheme introduces a joint fusion and optimization module (§5.3), based on a factor graph, which treats relative motion as proprioceptive measurements and integrates them with the exteroceptive measurements from the STPF module. 
-          This fusion, performed at the later stage of pose estimation, yields optimized 6-DoF poses.
+          This approach fuses event camera with IMU at the <i>early stage</i> of raw data processing, improving the <i>efficiency</i> of matching-based pose estimation. 
+          This scheme then introduces a graph-informed joint fusion and optimization module (§5.2).
+          This module first infers the drone's relative motion through proprioceptive tracking and then uses a carefully designed factor graph to fuse these measurements with exteroceptive data from the STPF module. 
+          This fusion, performed at the <i>later stage</i> of pose estimation, further improves the <i>accuracy</i> of matching-based pose estimation.
 
         </p>
 
         <p>
         <b>Relationship between STPE and MHFO.</b> 
-        STPE extracts a temporal distance field feature from the event stream and aligns it with a prior 3D point map to facilitate map-based drone pose estimation.
-        To further enhance the efficiency and accuracy of this estimation, EV-Pose incorporates MHFO, which leverages drone motion information for early-stage event filtering—reducing the number of events involved in matching—and later-stage pose optimization, recovering the scale and producing a 6-DoF trajectory with minimal drift.
+        STPE extracts a temporal distance field feature from the event stream and aligns it with a prior 3D point map to facilitate matching-based drone pose estimation.
+        To further enhance efficiency and accuracy of estimation, EV-Pose incorporates MHFO, which leverages drone motion information for early-stage event filtering, which reduces the number of events involved in matching, and later-stage pose optimization, which recovers scale and produces a 6-DoF trajectory with minimal drift. 
         </p>
         <img src="./static/images/overview.png" alt="Image 1" width="100%">
         </div>
@@ -302,16 +303,17 @@
           <b>(iii)</b> a Pixhawk 4 flight controller for drone control and IMU measurements. <br>
           EV-Pose runs on an Intel NUC with a Core i7 CPU, 16GB RAM, and Ubuntu 20.04.
           Indoor and outdoor environment mapping is completed in advance using the Livos MID-360 LiDAR and FAST-LIO2 algorithm.
-          All algorithms of EV-Pose are implemented in C++.
-          Several implementation techniques are employed to enhance the practicality of the system and push the limits of tracking accuracy and efficiency.         
+          All algorithms of EV-Pose are implemented in C++ and ROS.     
         </div>
         <img src="./static/images/implement.png" alt="Image 1" width="100%">
         <br><br><br>
         <div class="content has-text-justified">
-          We conduct field studies of EV-Pose both indoors and outdoors to evaluate its pose tracking performance, as shown in figure.
+          We conduct field studies of EV-Pose both indoors and outdoors to evaluate its pose tracking performance, as shown in Fig 10.
+          The drone flies along a square spiral trajectory within the test field.
           The environment is pre-mapped, and the drone operates in the 3D point-mapped environment for pose estimation. 
           In indoor settings, the drone's pose ground truth is obtained using a CHINGMU Motion Capture system with 16 MC1300 infrared cameras operating at 210 FPS. 
-          For outdoor settings, we deployed a private RTK station using a Hi-Target D8 to provide accurate pose ground truth.
+          For outdoor settings, we deployed a private RTK station using a Hi-Target D8 to provide accurate ground truth.
+          We conduct 20+ hours of extensive experiments, collecting 200+GB of raw data.
         </div>
         <img src="./static/images/setup.png" alt="Image 1" width="100%">
 
@@ -384,7 +386,7 @@
       <div class="column is-8">
         <div class="content">
           <p>
-            Website template from <a
+            Website template from <a 
             href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> under a <a rel="license"
                                                 href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
             Commons Attribution-ShareAlike 4.0 International License</a>.
