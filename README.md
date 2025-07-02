@@ -1,5 +1,5 @@
-# EventLoc
+# EV-Pose
 
-This is the repository that contains source code for the [EventLoc website](https://eventloc.github.io).
+This is the repository that contains source code for the [EV-Pose website](https://EV-Pose.github.io).
 
-Code will be made publicly available before publication.
+Code will be made publicly available before publication.   

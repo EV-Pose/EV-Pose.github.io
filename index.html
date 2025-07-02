@@ -3,10 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="Enhance mmWave Radar with Event Cameras for Low Latency Landing Drone Localization">
-  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+        content="EV-Pose">
+  <meta name="keywords" content="Event camera">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>[SenSys 2025] EventLoc: Enhancing Event Cameras for Low Latency 3D Object Localization with mmWave Radar Integration</title>
+  <title>[SenSys 2026] Enabling High-Frequency Cross-Modality Visual Positioning Service for Drones</title>
+
+  <script type="text/javascript" async
+  src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script type="text/javascript" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -56,9 +61,9 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">EventLoc: Enhancing Event Cameras for Low Latency 3D Object Localization with mmWave Radar Integration</h1>
+          <h3 class="title is-1 publication-title">Enabling High-Frequency Cross-Modality Visual Positioning Service for Drones</h3>
           <div class="is-size-5 publication-authors">
-            <h1 class="title is-4 publication-title", style="color:#6e6e6e;">ACM SenSys 2025 Submissions #48</h1>
+            <h1 class="title is-4 publication-title", style="color:#6e6e6e;">ACM SenSys 2026 Submissions #174</h1>
             <span class="author-block">
               Anonymous authors</a></span>
             
@@ -98,7 +103,7 @@
               </span> -->
               <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/EventLoc/EventLoc.github.io"
+                <a href="https://github.com/ev-pose/ev-pose.github.io"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
@@ -126,19 +131,23 @@
 
 <section class="hero teaser">
   <div class="container is-max-desktop">
-    <div class="hero-body">
-      <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/outdoor.mp4"
-                type="video/mp4">
-      </video>
-      <!-- <div class="image-container">
-        <img src="./static/images/airport_ape_cdf.png" alt="Image 1" width="45%">
-        <img src="./static/images/airport_rpe_cdf.png" alt="Image 2" width="45%">
-      </div> -->
+    <div class="hero-body" style="text-align:center">
+      <h2 class="title is-3">Demo video</h2>
 
+      <h2 class="content has-text-justified">
+        EV-Pose estimates drone 6-DoF pose by redesigning drone-oriented VPS with event cameras. 
+        Compared to conventional VPS systems, EV-Pose enables rapid and high-frequency drone pose tracking, ensuring precise flight control.
+
+      </h2>
+
+<!--       <video id="teaser" width="640" height="480" autoplay muted loop playsinline height="100%"> -->
+      <video id="teaser" width="1280" height="960" autoplay muted loop playsinline height="100%">
+        <source src="./static/images/demo.mp4" type="video/mp4">
+      </video>
+      <!-- <img src="./static/images/demo.png" alt="Image 1" width="100%"> -->
 
       <h2 class="subtitle has-text-centered">
-        <span class="dnerf">EventLoc</span> enhance mmWave Radars with Event Cameras for Low Latency Drone Localization
+        <span class="dnerf">EV-Pose redesigns drone-oriented VPS with event cameras. </span> 
       </h2>
     </div>
   </div>
@@ -154,13 +163,14 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
-          Event cameras report pixel-wise brightness changes asynchronously and excel in various 2D vision tasks. 
-          However, the scale uncertainty limits their potential in 3D object localization, a critical component of various vital 3D vision tasks. 
-          Existing solutions involve lengthy processing times or event camera downsampling, negating its low-latency advantages.
-          This paper introduces EventLoc, a low latency-oriented event camera enhancement system that integrates it with mmWave radar to achieve high-accuracy, low-latency 3D object localization. 
-          By designing a Consistency-Instructed Collaborative Tracking algorithm and a Graph-Informed Adaptive Joint Optimization algorithm, EventLoc effectively extract both \textit{consistent and complementary information} across both modalities for efficient noise filtering, sensor fusion and optimization.
-          Evaluation through extensive drone localization experiments reveals that EventLoc demonstrates significant improvement over state-of-the-art baselines in both localization accuracy and latency.
-          Case study at a drone airport demonstrate EventLoc as a practical solution.
+          After years of growth, the drone-driven low-altitude economy is transforming logistics.
+          At its core, real-time 6-DoF drone pose tracking enables precise flight control.  
+          With widely accessible of urban 3D maps, Visual Positioning Service (VPS), a mobile pose estimation system, has been adapted to improve drone pose tracking in GPS-denied environments.
+          However, deploying current VPS on drones faces limitations in both estimation accuracy and efficiency.
+          In this work, we redesign drone-oriented VPS with event camera and introduce EV-Pose to enable accurate, low-latency 6-DoF drone pose tracking.
+          EV-Pose introduces a spatio-temporal feature-instructed pose estimation module to extract temporal distance field for pose estimation with 3D point map matching; 
+          and a motion-aware hierarchical fusion and optimization scheme to enhance above estimation in accuracy and efficiency, by utilizing drone motion in early stage of event filtering and later stage of pose optimization.
+          Evaluation shows that EV-Pose achieves a rotation accuracy of 1.34° and a translation accuracy of 6.9\(mm\) with a tracking latency of 10.08\(ms\), outperforming baselines by >50%.
         </div>
       </div>
     </div>
@@ -189,16 +199,46 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Event Camera Preliminary</h2>
         <div class="content has-text-justified">
-          <p>
-          Event cameras are bio-inspired sensors that capture data asynchronously and independently at the pixel level. 
-          Unlike conventional cameras that sample images at a fixed time interval, event cameras register only changes in pixel brightness as they occur, producing a stream of events with microsecond temporal precision.
+        <p>
+          <!-- Event cameras are bio-inspired sensors that capture data asynchronously and independently at the pixel level.  -->
+          Event cameras are bio-inspired sensors that differ from traditional frame cameras. 
+          Specifically, frame cameras capture synchronous images with a global shutter at fixed time intervals, while output of an event camera is event streams with $ms$-level resolution, as shown in Fig. (a).
+          Each pixel in an event camera independently responds to changes in brightness asynchronously.
+          Each event \( e = (\boldsymbol{x}, i, p) \) represents a pixel at location \(\boldsymbol{x} = (u, v)\) has undergone a predefined magnitude change in brightness at a time \( i \), as shown in Fig. (b). 
+          \( p \) is polarity of intensity change, which is 'ON' for brighter and 'OFF' for darker.
         </p>
           <!-- <p>
           When a pixel detects a sufficient change in light intensity, it generates an event, denoted as \( e_k = \left(\mathbf{x}_k, t_k, p_k\right) \). 
           This event encodes the pixel’s position \(\mathbf{x}_k\), the exact time of activation \(t_k\), and the polarity \(p_k\) (where \(+1\) represents a brightening change and \(-1\) a darkening change) of the intensity shift.
         </p> -->
         </div>
-        <img src="./static/images/event.png" alt="Image 1" width="80%">
+        <img src="./static/images/event.png" alt="Image 1" width="100%">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Method. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">RGB camera-based VPS & event camera-enhanced VPS</h2>
+        <div class="content has-text-justified">
+        <p>
+          <!-- Event cameras are bio-inspired sensors that capture data asynchronously and independently at the pixel level.  -->
+          (a) Current VPS uses an RGB camera, an IMU, and 3D point clouds for pose estimation. <br>
+          (b) EV-Pose leverages event cameras for accurate and low-latency 6-DoF drone pose tracking.
+        </p>
+          <!-- <p>
+          When a pixel detects a sufficient change in light intensity, it generates an event, denoted as \( e_k = \left(\mathbf{x}_k, t_k, p_k\right) \). 
+          This event encodes the pixel’s position \(\mathbf{x}_k\), the exact time of activation \(t_k\), and the polarity \(p_k\) (where \(+1\) represents a brightening change and \(-1\) a darkening change) of the intensity shift.
+        </p> -->
+        </div>
+        <img src="./static/images/comparation.png" alt="Image 1" width="70%">
       </div>
     </div>
 
@@ -215,17 +255,32 @@
         <h2 class="title is-3">System Overview</h2>
         <div class="content has-text-justified">
         <p>
-          The EventLoc comprises two key modules:
+          From a top-level perspective, we design EV-Pose, an event-based 6-DoF pose tracking system for drones that redesign current VPS with event camera. 
+          EV-Pose leverages prior 3D point maps and temporal consistency between event camera and IMU to achieve accurate, low-latency drone 6-DoF pose tracking.
         </p>
         <p>
-          <i>(i)</i> The CCT (Consistency-instructed Collaborative Tracking) for noise filtering and roughly localization of the drone.
-          This module utilizes <b>consistent information</b> of both modalities to eliminate noise and error detections, and roughly localize the drone.
+          <b>(i) Feature-instructed Pose Estimation (STPE) module </b> (§ 4).
+          This module first introduces the concept of a separated polarity time-surface, a novel spatio-temporal representation for event streams (§4.1). 
+          Subsequently, it leverages the temporal relationships among events encoded in the time-surface to generate a distance field, which is then used as a feature representation for the event stream (§4.2).
+          Finally, the 2D event-3D point map matching module models the drone pose estimation problem, which aligns the event stream’s distance field feature with the 3D point map, thus facilitating absolute pose estimation of the drone (§4.3).
+        
         </p>
         <p>
-          <i>(ii)</i> The GAJO (Graph-informed Adaptive Joint Optimization) for fine localization and trajectory optimization of the drone.
-          This module employs the <b>complementary information</b> from both modalities to unleash the potential of event camera and mmWave radar in landing drone localization.
+          <b>(ii) Motion-aware Hierarchical Fusion and Optimization (MHFO) scheme </b> (§5).
+          This scheme first introduces motion-optical flow-instructed event filtering (§5.1), which combines drone motion information with structural data from the 3D point map to predict event polarity and perform fine-grained event filtering. 
+          This approach fuses event camera with IMU at the <i>early stage</i> of raw data processing, improving the <i>efficiency</i> of matching-based pose estimation. 
+          This scheme then introduces a graph-informed joint fusion and optimization module (§5.2).
+          This module first infers the drone's relative motion through proprioceptive tracking and then uses a carefully designed factor graph to fuse these measurements with exteroceptive data from the STPF module. 
+          This fusion, performed at the <i>later stage</i> of pose estimation, further improves the <i>accuracy</i> of matching-based pose estimation.
+
         </p>
-        <img src="./static/images/overview2.png" alt="Image 1" width="100%">
+
+        <p>
+        <b>Relationship between STPE and MHFO.</b> 
+        STPE extracts a temporal distance field feature from the event stream and aligns it with a prior 3D point map to facilitate matching-based drone pose estimation.
+        To further enhance efficiency and accuracy of estimation, EV-Pose incorporates MHFO, which leverages drone motion information for early-stage event filtering, which reduces the number of events involved in matching, and later-stage pose optimization, which recovers scale and produces a 6-DoF trajectory with minimal drift. 
+        </p>
+        <img src="./static/images/overview.png" alt="Image 1" width="100%">
         </div>
       </div>
     </div>
@@ -242,13 +297,26 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Implementation and Experiments Setup</h2>
         <div class="content has-text-justified">
-          We implement EventLoc with a handheld prototype equipped with multiple sensors including
-          <i>(i)</i> A Prophesee EVK4 HD evaluation kit, featuring the IMX636ES event-based vision sensor for HD event data (1280 $\times$ 720 pixels) with the Soyo SFA0820-5M lens. 
-          <i>(ii)</i> A Texas Instruments (TI) IWR1843 board for transmitting and receiving mmWave signals within the frequency range of 76 GHz to 81 GHz. The TI IWR1843 integrates three transmitting antennas labeled TX1 to TX3, and four receiving antennas labeled RX1 to RX4. These antennas are arranged in two linear configurations on the horizontal plane.
-          All the sensors are synchronized through Robot Operating System (ROS).
-          The EventLoc operates on a PC equipped with Ubuntu 20.04, an Intel i7-12900K CPU, and 32GB RAM.
+          As illustrated in figure, EV-Pose is implemented using a 450 mm-wide drone equipped with <br>
+          <b>(i)</b> a Prophesee EVK4 HD event camera with 1280 x 720 resolution; <br>
+          <b>(ii)</b>  a D435i Depth camera for frame image capture; <br>
+          <b>(iii)</b> a Pixhawk 4 flight controller for drone control and IMU measurements. <br>
+          EV-Pose runs on an Intel NUC with a Core i7 CPU, 16GB RAM, and Ubuntu 20.04.
+          Indoor and outdoor environment mapping is completed in advance using the Livos MID-360 LiDAR and FAST-LIO2 algorithm.
+          All algorithms of EV-Pose are implemented in C++ and ROS.     
         </div>
-        <img src="./static/images/setup2.png" alt="Image 1" width="100%">
+        <img src="./static/images/implement.png" alt="Image 1" width="100%">
+        <br><br><br>
+        <div class="content has-text-justified">
+          We conduct field studies of EV-Pose both indoors and outdoors to evaluate its pose tracking performance, as shown in Fig 10.
+          The drone flies along a square spiral trajectory within the test field.
+          The environment is pre-mapped, and the drone operates in the 3D point-mapped environment for pose estimation. 
+          In indoor settings, the drone's pose ground truth is obtained using a CHINGMU Motion Capture system with 16 MC1300 infrared cameras operating at 210 FPS. 
+          For outdoor settings, we deployed a private RTK station using a Hi-Target D8 to provide accurate ground truth.
+          We conduct 20+ hours of extensive experiments, collecting 200+GB of raw data.
+        </div>
+        <img src="./static/images/setup.png" alt="Image 1" width="100%">
+
       </div>
     </div>
 
@@ -263,8 +331,14 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Quantitative results</h2>
-        <h4 class="title is-4">Overall Performances</h4>
-        <img src="./static/images/overall.png" alt="Image 1" width="100%">
+        <h4 class="title is-4">Overall Performances on Field Study</h4>
+        <img src="./static/images/overallerror.png" alt="Image 1" width="100%">
+        <br><br>
+        <h4 class="title is-4">Latency on Field Study</h4>
+        <img src="./static/images/latency.png" alt="Image 1" width="70%">
+        <br><br>
+        <h4 class="title is-4">Overall Performances on Public Datasets</h4>
+        <img src="./static/images/dataset.png" alt="Image 1" width="100%">
         <br><br>
         <h4 class="title is-4">Robustness Evaluation</h4>
         <img src="./static/images/robustness.png" alt="Image 1" width="100%">
@@ -282,34 +356,6 @@
 </section>
 
 <hr>
-
-<section class="airport evaluation">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-      <h2 class="title is-3">Airport Evaluation</h2>
-
-      <h4 class="title is-4">Experiments Setup</h4>
-      <img src="./static/images/airport_setup.png" alt="Image 1" width="90%">
-
-      <br><br>
-      <h4 class="title is-4">Experiments Video</h4>
-      <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/outdoor.mp4"
-                type="video/mp4">
-      </video>
-
-      <br><br>
-      <h4 class="title is-4">Quantitative results</h4>
-      <div class="image-container">
-        <img src="./static/images/airport_ape_cdf.png" alt="Image 1" width="45%">
-        <img src="./static/images/airport_rpe_cdf.png" alt="Image 2" width="45%">
-      </div>
-      Absolute positon error (left) and Relative positon error (right) of the drone in the airport environment.
-    </div>
-  </div>
-</section>
-
 
 
 <!-- <section class="section" id="BibTeX">
@@ -340,7 +386,7 @@
       <div class="column is-8">
         <div class="content">
           <p>
-            Website template from <a
+            Website template from <a 
             href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> under a <a rel="license"
                                                 href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
             Commons Attribution-ShareAlike 4.0 International License</a>.
